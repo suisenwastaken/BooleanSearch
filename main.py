@@ -1,4 +1,4 @@
-import nltk  # библиотека для обработки естественного языка
+import nltk 
 import pymorphy3
 import wikipedia
 from fuzzywuzzy import fuzz
@@ -14,8 +14,9 @@ amount = 100
 # метод Джаро-Винклера
 def correct_spelling(input_str, options):
     best_match = max(options, key=lambda option: fuzz.token_set_ratio(input_str, option))
-    print(best_match)
+    # print(best_match)
     return best_match
+    
 
 # удаляем знаки препинания
 def delete_punctuation_marks(text):
@@ -67,7 +68,7 @@ def search_wikipedia(amount):
     ind = 1
     pages = wikipedia.search(theme, amount)
     print("Найденные тексты:")
-    for i in range(1,len(pages) + 1):
+    for i in range(1,len(pages)):
         print(str(i) + ': ' + pages[i])
 
     for page in pages:
@@ -112,7 +113,8 @@ for i in range(1, amount):
 print(" ")
 
 query = input('Запрос: ').lower()
-query = correct_spelling(query, list(inverted_index.keys()))
+query = data_processing(correct_spelling(query, list(inverted_index.keys())))
+# print(query)
 print('Найденные по запросу страницы:')
 
 try:
